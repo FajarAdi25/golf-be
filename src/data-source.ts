@@ -17,4 +17,3 @@ export const AppDataSource = new DataSource({
   migrations: [],
   subscribers: [],
 });
-//entities: [User,Alert, Role, Region, Pic, Escalated, Categorie, ListTarget, ListTargetEscalated, LogAlert, Department, Service, ServiceEscalated, Location, ServiceReference, Channel, AlertGenerateSound],
