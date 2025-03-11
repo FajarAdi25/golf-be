@@ -39,9 +39,8 @@
     "ua-parser-js": "^1.0.37"
   },
   "scripts": {
-    "start": "nodemon src/index.ts",
+    "start": "nodemon dist/index.ts",
     "build": "tsc",
-    "cron": "nodemon src/cron/index.ts",
     "typeorm": "typeorm-ts-node-commonjs"
   }
 }
