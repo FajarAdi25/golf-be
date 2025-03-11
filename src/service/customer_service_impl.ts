@@ -1,14 +1,14 @@
 import { DataSource, QueryRunner } from "typeorm";
 import { Request, Response } from "express";
-import { ServiceResponseInterface } from "../api/service_response";
+import { ServiceResponseInterface } from "../helper/service_response";
 import { CustomerServiceInterface } from "./customer_service";
 import { validate } from "class-validator";
 import { ToServiceResponse } from "../helper/toServiceResponse";
 import { StatusInternalServerError } from "../response/internal_server_error";
 import { StatusBadRequestError } from "../response/bad_request";
 import { CustomerRepositoryInterface } from "../repository/customer_repository";
-import { CustomerUpdateRequest } from "../api/customer_update_request";
-import { CustomerCreateRequest } from "../api/customer_create_request";
+import { CustomerUpdateRequest } from "../helper/customer_update_request";
+import { CustomerCreateRequest } from "../helper/customer_create_request";
 
 class CustomerServiceImpl implements CustomerServiceInterface {
   private customerRepository: CustomerRepositoryInterface;

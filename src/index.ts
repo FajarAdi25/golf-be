@@ -7,7 +7,7 @@ import routes from "./routes";
 import * as cors from "cors";
 // import formData from "express-form-data"
 const formData = require("express-form-data");
-import { ControlllerResponseInterface } from "./api/controller_response";
+import { ControlllerResponseInterface } from "./helper/controller_response";
 import { connected } from "process";
 
 require("dotenv").config();
@@ -30,9 +30,8 @@ AppDataSource.initialize()
     app.use(cors());
     app.use(express.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    // app.use(express.static('/home/agung/pany-api'));
-    app.use("*/images", express.static(__dirname + "/../images"));
-    app.use("*/resources", express.static(__dirname + "/../resources"));
+    // app.use("*/images", express.static(__dirname + "/../images"));
+    // app.use("*/resources", express.static(__dirname + "/../resources"));
 
     // register routes
     // app.use(getURL);

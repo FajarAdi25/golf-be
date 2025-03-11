@@ -1,4 +1,4 @@
-import { RepositoryResponseInterface } from "../api/repository_response";
+import { RepositoryResponseInterface } from "../helper/repository_response";
 import { DataSource, QueryRunner } from "typeorm";
 import { CustomerRepositoryInterface } from "././customer_repository";
 import { Customers } from "../entity/customers";
@@ -6,8 +6,8 @@ import { StatusOK } from "../response/ok";
 import { StatusInternalServerError } from "../response/internal_server_error";
 import { StatusNotFoundError } from "../response/not_found_error";
 import { exec } from "child_process";
-import { CustomerUpdateRequest } from "../api/customer_update_request";
-import { CustomerCreateRequest } from "../api/customer_create_request";
+import { CustomerUpdateRequest } from "../helper/customer_update_request";
+import { CustomerCreateRequest } from "../helper/customer_create_request";
 
 class CustomerRepositoryImpl implements CustomerRepositoryInterface {
   getCustomers = async (

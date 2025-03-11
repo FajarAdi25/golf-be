@@ -1,4 +1,4 @@
-import { ControlllerResponseInterface } from "../api/controller_response";
+import { ControlllerResponseInterface } from "../helper/controller_response";
 import { UploadMultipleField } from "../config/upload_file";
 import { ToControllerResponse } from "../helper/to_controller_response";
 import { ResponseAPI } from "../interface/response_api_interface";

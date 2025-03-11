@@ -1,7 +1,7 @@
 import { DataSource, QueryRunner } from "typeorm";
-import { RepositoryResponseInterface } from "../api/repository_response";
-import { CustomerCreateRequest } from "../api/customer_create_request";
-import { CustomerUpdateRequest } from "../api/customer_update_request";
+import { RepositoryResponseInterface } from "../helper/repository_response";
+import { CustomerCreateRequest } from "../helper/customer_create_request";
+import { CustomerUpdateRequest } from "../helper/customer_update_request";
 
 export interface CustomerRepositoryInterface {
   getCustomers(

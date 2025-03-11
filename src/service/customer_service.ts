@@ -1,4 +1,4 @@
-import { ServiceResponseInterface } from "../api/service_response";
+import { ServiceResponseInterface } from "../helper/service_response";
 import { Request, Response } from "express";
 
 export interface CustomerServiceInterface {
