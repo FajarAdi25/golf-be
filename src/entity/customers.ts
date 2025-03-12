@@ -5,7 +5,7 @@ export enum ACTIVE_STATUS {
   NOT_ACTIVE = 0,
 }
 
-@Entity("customers")
+@Entity("company")
 export class Customers {
   @PrimaryGeneratedColumn()
   id: number;

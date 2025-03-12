@@ -13,7 +13,8 @@ export interface CustomerRepositoryInterface {
   ): Promise<RepositoryResponseInterface>;
   createCustomer(
     conn: QueryRunner | DataSource,
-    r: CustomerCreateRequest
+    request: CustomerCreateRequest,
+    categories?: number[]
   ): Promise<RepositoryResponseInterface>;
   deleteCustomer(
     conn: QueryRunner | DataSource,
@@ -22,6 +23,7 @@ export interface CustomerRepositoryInterface {
   updateCustomer(
     conn: QueryRunner | DataSource,
     id: number,
-    r: CustomerUpdateRequest
+    request: CustomerUpdateRequest,
+    categories?: number[]
   ): Promise<RepositoryResponseInterface>;
 }
