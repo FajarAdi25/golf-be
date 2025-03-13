@@ -14,17 +14,39 @@ class CustomerRepositoryImpl implements CustomerRepositoryInterface {
     conn: QueryRunner | DataSource
   ): Promise<RepositoryResponseInterface> => {
     try {
-      const query = `SELECT c.*, GROUP_CONCAT(cat.category_name SEPARATOR ', ') AS categories
-                      FROM company c
-                      JOIN company_category cc ON c.id = cc.company_id
-                      JOIN category cat ON cc.category_id = cat.id
-                      WHERE c.active_status_id = 1
-                      GROUP BY c.id;`;
+      // First, get all customers
+      const customersQuery = `
+        SELECT * FROM company 
+        WHERE active_status_id = 1
+      `;
+      const customers = await conn.query(customersQuery);
 
-      const d = await conn.query(query);
-      // console.log(d);
+      // For each customer, get their categories
+      for (const customer of customers) {
+        const categoriesQuery = `
+          SELECT cat.id, cat.category_name 
+          FROM category cat
+          JOIN company_category cc ON cat.id = cc.category_id
+          WHERE cc.company_id = ?
+        `;
+        const categories = await conn.query(categoriesQuery, [customer.id]);
 
-      return StatusOK(d);
+        // Add categories as an array to customer object
+        customer.categories = categories;
+      }
+
+      return StatusOK(customers);
+      // const query = `SELECT c.*, GROUP_CONCAT(cat.category_name SEPARATOR ', ') AS categories
+      //                 FROM company c
+      //                 JOIN company_category cc ON c.id = cc.company_id
+      //                 JOIN category cat ON cc.category_id = cat.id
+      //                 WHERE c.active_status_id = 1
+      //                 GROUP BY c.id;`;
+
+      // const d = await conn.query(query);
+      // // console.log(d);
+
+      // return StatusOK(d);
     } catch (err) {
       return StatusInternalServerError(err);
     }
@@ -34,18 +56,44 @@ class CustomerRepositoryImpl implements CustomerRepositoryInterface {
     id: number
   ): Promise<RepositoryResponseInterface> => {
     try {
-      const query = `SELECT c.*, GROUP_CONCAT(cat.category_name SEPARATOR ', ') AS categories
-                      FROM company c
-                      JOIN company_category cc ON c.id = cc.company_id
-                      JOIN category cat ON cc.category_id = cat.id
-                      WHERE c.id = ${id} AND c.active_status_id = 1
-                      GROUP BY c.id;`;
-      const d = await conn.manager.query(query);
-      // console.log(d);
+      // Get customer data
+      const customerQuery = `
+        SELECT * FROM company
+        WHERE id = ? AND active_status_id = 1
+      `;
+      const customers = await conn.query(customerQuery, [id]);
 
-      if (d.length < 1)
+      if (customers.length < 1) {
         return StatusNotFoundError(new Error(`id ${id} is not found`));
-      return StatusOK(d[0]);
+      }
+
+      const customer = customers[0];
+
+      // Get categories for this customer
+      const categoriesQuery = `
+        SELECT cat.id, cat.category_name 
+        FROM category cat
+        JOIN company_category cc ON cat.id = cc.category_id
+        WHERE cc.company_id = ?
+      `;
+      const categories = await conn.query(categoriesQuery, [id]);
+
+      // Add categories as an array to customer object
+      customer.categories = categories;
+
+      return StatusOK(customer);
+      // const query = `SELECT c.*, GROUP_CONCAT(cat.category_name SEPARATOR ', ') AS categories
+      //                 FROM company c
+      //                 JOIN company_category cc ON c.id = cc.company_id
+      //                 JOIN category cat ON cc.category_id = cat.id
+      //                 WHERE c.id = ${id} AND c.active_status_id = 1
+      //                 GROUP BY c.id;`;
+      // const d = await conn.manager.query(query);
+      // // console.log(d);
+
+      // if (d.length < 1)
+      //   return StatusNotFoundError(new Error(`id ${id} is not found`));
+      // return StatusOK(d[0]);
     } catch (err) {
       return StatusInternalServerError(err);
     }
