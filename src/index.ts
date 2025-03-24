@@ -13,16 +13,6 @@ import { connected } from "process";
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT_DEV;
-const https = require("https");
-const fs = require("fs");
-
-const privateKey = fs.readFileSync("./src/key.pem", "utf8");
-const certificate = fs.readFileSync("./src/cert.pem", "utf8");
-const options = {
-  key: privateKey,
-  cert: certificate,
-};
-const httpsServer = https.createServer(options, app);
 
 AppDataSource.initialize()
   .then(() => {
@@ -43,10 +33,8 @@ AppDataSource.initialize()
     });
     app.use("/", routes);
     // start express server
-    httpsServer.listen(port, () => {
-      console.log(
-        `⚡️[server]: Server is running at https://localhost:${port}`
-      );
+    app.listen(port, () => {
+      console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
     });
   })
   .catch((err) => {
