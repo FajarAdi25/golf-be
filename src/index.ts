@@ -17,7 +17,12 @@ const port = process.env.PORT_DEV;
 AppDataSource.initialize()
   .then(() => {
     console.log("Data Source has been initialized!");
-    app.use(cors());
+    app.use(
+      cors({
+        origin: ["http://localhost:3000", "https://www.theunifiedgolf.com"],
+        methods: ["GET", "POST", "PUT", "DELETE"], // Metode HTTP yang diizinkan
+      })
+    );
     app.use(express.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     // app.use("*/images", express.static(__dirname + "/../images"));
