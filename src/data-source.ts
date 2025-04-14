@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Customers } from "./entity/customers";
+import { GolfRates } from "./entity/golf_rates";
 require("dotenv").config();
 
 export const AppDataSource = new DataSource({
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
   timezone: "+00:00", // for writing to database
   synchronize: false,
   logging: false,
-  entities: [Customers],
+  entities: [Customers, GolfRates],
   migrations: [],
   subscribers: [],
 });
