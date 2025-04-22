@@ -49,7 +49,7 @@ export class Customers {
   company_phone: string;
   @Column("enum", { enum: ACTIVE_STATUS, default: ACTIVE_STATUS.ACTIVE })
   active_status_id: ACTIVE_STATUS;
-  @Column({ type: "datetime" })
+  @Column({ type: "datetime", nullable: true })
   created_at: Date | null;
   @Column({ nullable: true })
   created_by: string;

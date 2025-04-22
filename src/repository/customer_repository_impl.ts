@@ -175,6 +175,7 @@ class CustomerRepositoryImpl implements CustomerRepositoryInterface {
       // Map request to entity
       const customer = this.mapRequestToEntity(request);
       customer.active_status_id = 1;
+      customer.created_at = new Date();
 
       // Save customer
       const savedCustomer = await queryRunner.manager.save(customer);
